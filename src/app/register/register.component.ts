@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms'
+import {Router} from '@angular/router'
+import { CakeserviceService } from '../services/cakeservice.service';
 
 @Component({
   selector: 'app-register',
@@ -24,13 +26,15 @@ export class RegisterComponent {
   get password(){
     return this.regForm.get("password")
   }
-  constructor(){
+  constructor(private router:Router,private service:CakeserviceService){
     
   }
 
   createaccount(){
     if(this.regForm.valid){
-      console.log(this.regForm.value);
+      let formData=this.regForm.value
+      this.service.signUp(formData).subscribe(res=>this.router.navigateByUrl(""))
+      
       
     }
   }

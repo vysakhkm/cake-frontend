@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms'
+import{Router} from '@angular/router'
+import { CakeserviceService } from '../services/cakeservice.service';
 
 @Component({
   selector: 'app-login',
@@ -17,11 +19,18 @@ export class LoginComponent {
   get password(){
     return this.loginform.get("password")
   }
+  constructor(private router:Router,private service:CakeserviceService){
+
+  }
 
   logingin(){
     if(this.loginform.valid){
-      console.log(this.loginform.value);
+      this.router.navigateByUrl("index")
+      let formData=this.loginform.value
+      this.service.getToken(formData).subscribe((res:any)=>localStorage.setItem("token",res.token) )
       
     }
   }
 }
+
+
