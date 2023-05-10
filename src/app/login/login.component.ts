@@ -27,7 +27,11 @@ export class LoginComponent {
     if(this.loginform.valid){
       this.router.navigateByUrl("index")
       let formData=this.loginform.value
-      this.service.getToken(formData).subscribe((res:any)=>localStorage.setItem("token",res.token) )
+      this.service.getToken(formData).subscribe((res:any)=>{
+        localStorage.setItem("token","Token "+res.token) 
+        this.router.navigateByUrl("cakes")
+      
+      })
       
     }
   }
