@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http'
+import {HttpClient,HttpHeaders} from '@angular/common/http'
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,15 @@ export class CakeserviceService {
   getToken(data:any){
     return this.http.post(`${this.baseUrl}/token/`,data)
   }
+grtAllCakes(){
+  let token=localStorage.getItem("token")??""
+  let header=new HttpHeaders({
+    "Content-type":"application/json",
+    "Authorization":token
+  })
 
+  return this.http.get(`${this.baseUrl}/cakes/`,{"headers":header})
+}
 
   
   
@@ -34,6 +42,7 @@ export class CakeserviceService {
 
 // http client returns an observable  ().subscribe()
 // fetch().then()
+// 
 
 
 //localStorage js
@@ -41,3 +50,7 @@ export class CakeserviceService {
 // localStorage.getItem(key)
 // localStorage.removeItem(key)
 // localStorage.clear()
+
+
+// for sending headers
+// HttpHeader
